@@ -1,7 +1,9 @@
 import { Film } from "../models/Film";
-import films from "../data/films.json";
 import { Request, Response } from "express";
+import db from "../data";
+import response from "../utils/response";
 
-export default (req: Request, res: Response): Response<Film[]> => {
-  return res.status(200).json(films);
+export default async (req: Request, res: Response): Promise<Response<Film[], Record<string, any>>> => {
+  const data = await db.list();
+  return response(res, 200, data);
 };
